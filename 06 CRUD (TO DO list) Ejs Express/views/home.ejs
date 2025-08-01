@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>To Do List</h1>
+
+    <form action="/addData" method="post">
+        <input type="text" name="task" placeholder="Add your task..."><br>
+
+        <button type="submit">Add</button>
+    </form>
+
+    <h1>Task list</h1>
+    <table border="1" cellspacing="1" cellpadding="10">
+        <thead>
+            <tr>
+                <td>No</td>
+                <td>Task</td>
+            </tr>
+        </thead>
+        <tbody>
+            <%taskArr.forEach((val,i)=>{%>
+                <tr>
+                    <td>
+                        <%=i+1%>
+                    </td>
+                    <td>
+                        <%=val%>
+                    </td>
+                    <td>
+                        <button><a href="/delete/<%=i%>">Delete</a></button>
+                    </td>
+                    <td>
+                        <button><a href="/editData/<%=i%>">Edit</a></button>
+                    </td>
+                </tr>
+
+
+                <%})%>
+        </tbody>
+    </table>
+</body>
+
+</html>
