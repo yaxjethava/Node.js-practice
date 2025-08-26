@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ABE2, #5563DE);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 2%;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .table-container {
+            background: #fff;
+            padding: 2%;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            min-width: 600px;
+            width: 80%;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #5563DE;
+            box-shadow: 0 0 5px rgba(85, 99, 222, 0.5);
+            outline: none;
+        }
+
+        .gender-options,
+        .hobby-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .gender-options label,
+        .hobby-options label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            background: #5563DE;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #3d4cb3;
+        }
+
+        .edit-btn {
+            background: #00802f;
+        }
+
+        .edit-btn:hover {
+            background: #005d22;
+        }
+
+        .delete-btn {
+            background: #b70000;
+        }
+
+        .delete-btn:hover {
+            background: #5d0000;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #5563DE;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 8px;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Profile Form</h2>
+        <form action="/addUser" method="post" enctype="multipart/form-data">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="age">Age *</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age" required>
+
+            <label>Gender *</label>
+            <div class="gender-options">
+                <label><input type="radio" name="gender" value="male"> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label>
+                <label><input type="radio" name="gender" value="other"> Other</label>
+            </div>
+
+            <label for="email">Email</label>
+            <input type="email" required id="email" name="email" placeholder="Enter your email">
+
+            <label>Password</label>
+            <input type="password" required name="password" placeholder="Enter your password">
+
+            <label>Hobby</label>
+            <div class="hobby-options">
+                <label><input type="checkbox" name="hobby" value="music"> Music</label>
+                <label><input type="checkbox" name="hobby" value="travel"> Travel</label>
+                <label><input type="checkbox" name="hobby" value="coding"> Coding</label>
+                <label><input type="checkbox" name="hobby" value="sports"> Sports</label>
+            </div>
+
+            <label for="city">City *</label>
+            <% let cites=["Amreli","Ahmedabad","Rajkot","Gandhinagar","Surat","Mumbai"] %>
+                <select id="city" name="city" required>
+                    <% cites.forEach((city)=> { %>
+                        <option value="<%=city%>">
+                            <%=city%>
+                        </option>
+                        <% }) %>
+                </select>
+
+                <label>Imaage</label>
+                <input type="file" name="image" id="">
+                <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
+
+    <br>
+
+
+    <div class="table-container">
+        <h2>Submitted Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Photo</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Hobbies</th>
+                    <th>City</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example static row -->
+                <%records.forEach((val,i)=>{%>
+                    <tr>
+                        <td>
+                            <%=i+1%>
+                        </td>
+                        <td>
+                            <img src="<%=val.image%>" alt="<%=val.name%>" width="80px" height="100px">
+                        </td>
+                        <td>
+                            <%=val.name%>
+                        </td>
+                        <td>
+                            <%=val.age%>
+                        </td>
+                        <td>
+                            <%=val.gender%>
+                        </td>
+                        <td>
+                            <%=val.email%>
+                        </td>
+                        <td>
+                            <%=val.hobby%>
+                        </td>
+                        <td>
+                            <%=val.city%>
+                        </td>
+                        <td style="display: flex;gap: 2%;">
+                            <a href="/editUser/<%=val.id%>"><button class="edit-btn">Edit</button></a>
+                            <a href="/deleteUser/<%=val.id%>"><button class="delete-btn">Delete</button></a>
+                        </td>
+                    </tr>
+                    <%})%>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

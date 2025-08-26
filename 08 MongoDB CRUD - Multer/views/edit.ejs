@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ABE2, #5563DE);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 2%;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .table-container {
+            background: #fff;
+            padding: 2%;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            min-width: 600px;
+            width: 80%;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #5563DE;
+            box-shadow: 0 0 5px rgba(85, 99, 222, 0.5);
+            outline: none;
+        }
+
+        .gender-options,
+        .hobby-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .gender-options label,
+        .hobby-options label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            background: #5563DE;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #3d4cb3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Update Profile</h2>
+        <form action="/updateUser/<%=id%>" method="post">
+            <label for="name">Name *</label>
+            <input type="text" id="name" value="<%=singalUser.name%>" name="name" placeholder="Enter your name"
+                required>
+
+            <label for="age">Age *</label>
+            <input type="number" id="age" value="<%=singalUser.age%>" name="age" placeholder="Enter your age" required>
+
+            <label>Gender *</label>
+            <div class="gender-options">
+                <label><input type="radio" <%if(singalUser.gender=="male" ){%> checked <%}%> name="gender" value="male">
+                        Male</label>
+                <label><input type="radio" <%if(singalUser.gender=="female" ){%> checked <%}%> name="gender"
+                        value="female"> Female</label>
+                <label><input type="radio" <%if(singalUser.gender=="other" ){%> checked <%}%> name="gender"
+                        value="other">
+                        Other</label>
+            </div>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" value="<%=singalUser.email%>" name="email" placeholder="Enter your email">
+
+            <label>Password</label>
+            <input type="password" value="<%=singalUser.password%>" name="password" placeholder="Enter your password">
+
+            <label>Hobby</label>
+            <div class="hobby-options">
+                <label><input type="checkbox" <%if(singalUser.hobby.includes("music")){%>checked<%}%> name="hobby" value="music"> Music</label>
+                <label><input type="checkbox" <%if(singalUser.hobby.includes("travel")){%>checked<%}%> name="hobby" value="travel"> Travel</label>
+                <label><input type="checkbox" <%if(singalUser.hobby.includes("coding")){%>checked<%}%> name="hobby" value="coding"> Coding</label>
+                <label><input type="checkbox" <%if(singalUser.hobby.includes("sports")){%>checked<%}%> name="hobby" value="sports"> Sports</label>
+            </div>
+
+            <label for="city">City *</label>
+            <% let cites=["Amreli","Ahmedabad","Rajkot","Gandhinagar","Surat","Mumbai"] %>
+                <select id="city" name="city" required>
+                    <% cites.forEach((city)=> { %>
+                        <option value="<%=city%>" <%if(singalUser.city==city){%>selected<%}%>>
+                                <%=city%>
+                        </option>
+                        <% }) %>
+                </select>
+
+                <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+
+</html>
